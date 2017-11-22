@@ -17,6 +17,7 @@ namespace SQLDatabase.Net.Explorer
         public MDIParent1()
         {
             InitializeComponent();
+            this.Text = Application.ProductName + " " + Application.ProductVersion;
             this.DoubleBuffered = true;
             Connections = GetConnectionList();
             InititalizeTreeview();
