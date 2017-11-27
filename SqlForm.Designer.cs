@@ -96,9 +96,11 @@
             this.tbSql.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSql.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbSql.Location = new System.Drawing.Point(3, 28);
             this.tbSql.Multiline = true;
             this.tbSql.Name = "tbSql";
+            this.tbSql.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbSql.Size = new System.Drawing.Size(562, 158);
             this.tbSql.TabIndex = 0;
             this.tbSql.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbSql_KeyUp);

@@ -196,15 +196,9 @@ namespace SQLDatabase.Net.Explorer
             if (row == null) return;
             if (row.RowState != DataRowState.Unchanged)
             {
-                if (!string.IsNullOrEmpty(row.RowError))
-                {
-                    MessageBox.Show(row.RowError, "Information");
-                    return;
-                }
-
                 switch (row.RowState)
                 {
-                    case DataRowState.Added:                        
+                    case DataRowState.Added:                                
                         var insertCommand = new SqlDatabaseCommand(connection);
                         var insertSql = "INSERT INTO " + row.Table.TableName + "(\n";
                         var insertFields = new List<string>();
@@ -223,7 +217,14 @@ namespace SQLDatabase.Net.Explorer
                         insertSql += ")";
 
                         insertCommand.CommandText = insertSql;
-                        insertCommand.ExecuteNonQuery();
+                        var count = insertCommand.ExecuteNonQuery();
+                        if (count == 0)
+                        {
+                            MessageBox.Show("the current record has not been inserted to the database");
+                            validateRow(dataGridView1.Rows[e.RowIndex]);
+                            return;
+                        }
+
                         break;
 
                     case DataRowState.Deleted:
@@ -252,7 +253,15 @@ namespace SQLDatabase.Net.Explorer
                         updateSql += string.Join(" AND ", oldFields);
 
                         updateCommand.CommandText = updateSql;
-                        updateCommand.ExecuteNonQuery();
+                        
+                        var countUpdate = updateCommand.ExecuteNonQuery();
+                        if (countUpdate == 0)
+                        {
+                            MessageBox.Show("The changed record has not been updated in the database");
+                            validateRow(dataGridView1.Rows[e.RowIndex]);
+                            return;
+                        }
+
                         break;
                 }
 
@@ -327,31 +336,30 @@ namespace SQLDatabase.Net.Explorer
             return false;
         }
 
-        private void dataGridView1_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-            e.Cancel = validateRow(row);
-        }
+            var drv = (dataGridView1.CurrentCell.OwningRow.DataBoundItem as DataRowView);
+            if (drv == null) return;
 
-        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            validateRow(dataGridView1.Rows[e.RowIndex]);
-        }
+            var src = drv.Row;
+            if (src == null) return;
 
-        private void dataGridView1_CellValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            validateRow(dataGridView1.Rows[e.RowIndex]);
-        }
-
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-                        
-        }
-
-        private void dataGridView1_CancelRowEdit(object sender, QuestionEventArgs e)
-        {
-            e.Response = true;
-            // dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = null;
+            if (e.KeyChar == 27)
+            {
+                if (src.RowState == DataRowState.Detached)
+                {
+                    src.CancelEdit();
+                } else if (src.RowState == DataRowState.Added)
+                {
+                    src.ClearErrors();
+                    src.CancelEdit();
+                    src.Delete();
+                } else if (src.RowState == DataRowState.Modified)
+                {
+                    src.CancelEdit();
+                    src.RejectChanges();
+                }
+            }
         }
     }
 }

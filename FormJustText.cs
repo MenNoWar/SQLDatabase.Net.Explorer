@@ -29,5 +29,16 @@ namespace SQLDatabase.Net.Explorer
                 textBox1.Lines = value;
             }
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBox1.SelectedText);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            var txt = textBox1.SelectedText.Replace("\r\n", "\n").Replace("\n\n", "\n");
+            Clipboard.SetText(txt);
+        }
     }
 }
