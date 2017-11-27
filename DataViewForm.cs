@@ -342,5 +342,16 @@ namespace SQLDatabase.Net.Explorer
         {
             validateRow(dataGridView1.Rows[e.RowIndex]);
         }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+                        
+        }
+
+        private void dataGridView1_CancelRowEdit(object sender, QuestionEventArgs e)
+        {
+            e.Response = true;
+            // dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = null;
+        }
     }
 }

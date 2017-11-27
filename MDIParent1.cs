@@ -597,5 +597,144 @@ namespace SQLDatabase.Net.Explorer
             Connections = GetConnectionList();
             InititalizeTreeview();
         }
+
+        private void tsmiCopyFields_Click(object sender, EventArgs e)
+        {
+            var txt = string.Empty;
+            foreach (TreeNode tn in tvSchema.Nodes)
+            {
+                txt += tn.Text.Split('[')[0] + "\n";
+            }
+
+            txt = txt.Trim();
+            Clipboard.SetText(txt);
+        }
+
+
+        private void copyAsCDefinitionToClipbrdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = tvMain.SelectedNode;
+            if (node == null || node.Tag == null || node.Tag.GetType() != typeof(SqlDataTable)) return;
+            var table = node.Tag as SqlDataTable;
+            using (var tw = new StreamWriter(new MemoryStream()))
+            {
+                tw.WriteLine(string.Format("[Table(\"{0}\")]", table.Name));
+                tw.WriteLine("public class " + table.Name);
+                tw.WriteLine("{");
+                tw.WriteLine("");
+
+                foreach (var c in table.Columns)
+                {
+                    tw.WriteLine("\t/// <summary>");
+                    tw.WriteLine("\t/// Gets or sets the " + c.Name);
+                    tw.WriteLine("\t/// </summary>");
+
+                    if (c.IsPKey)
+                    {
+                        tw.WriteLine("\t[Key]");
+                    }
+
+                    if (!c.Nullable)
+                    {
+                        tw.WriteLine("\t[Required]");
+                    }
+
+                    var tName = SqlDataColumn.SqlTypeToType(c.Type).Name;
+                    if (tName == "Int32")
+                    {
+                        tName = "int";
+                    }
+
+                    tw.WriteLine(string.Format("\t[Column(\"{0}\")]", c.Name));
+                    tw.WriteLine(string.Format("\tpublic {0} {1} {{ get; set; }}", tName, c.Name));
+                    tw.WriteLine("");
+                }
+
+                tw.WriteLine("}");
+                tw.Flush();
+
+                using (var sr = new StreamReader(tw.BaseStream))
+                {
+                    sr.BaseStream.Seek(0, 0);
+                    var txt = sr.ReadToEnd();
+                    var frm = new FormJustText { Text = "C# Class " + table.Name, Value = txt.Split('\n') };
+                    frm.MdiParent = this;
+                    frm.Visible = true;
+                }
+            }
+
+        }
+
+        private void copyValuesAsCListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = tvMain.SelectedNode;
+            if (node == null || node.Tag == null || node.Tag.GetType() != typeof(SqlDataTable)) return;
+            var table = node.Tag as SqlDataTable;
+
+            var dt = new DataTable(table.Name);
+            using (var con = new SqlDatabaseConnection(table.ConnectionString))
+            {
+                con.Open();
+                using (SqlDatabaseDataAdapter da = new SqlDatabaseDataAdapter("select * FROM " + table.Name, con))
+                {
+                    da.Fill(dt);
+                }
+
+                con.Close();
+            }
+            
+
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to generate from in table " + table.Name, "Information");
+                return;
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                using (var tw = new StreamWriter(ms))
+                {
+                    tw.WriteLine("return new List<" + table.Name + "> {");
+                    var valueLines = new List<string>();
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        var propVals = new List<string>();
+                        foreach (DataColumn col in dt.Columns)
+                        {
+                            var stringVal = Convert.ToString(row[col]);
+                            if (col.DataType == typeof(string))
+                            {
+                                stringVal = "\"" + stringVal.Replace("\"", "\\\"") + "\"";
+                            }
+
+                            stringVal = col.ColumnName + " = " + stringVal;
+                            propVals.Add(stringVal);
+                        }
+
+                        var colTxt = "\tnew " + table.Name + " { ";
+                        colTxt += string.Join(", ", propVals);
+                        colTxt += " }";
+                        valueLines.Add(colTxt);
+                    }
+
+                    tw.WriteLine(string.Join(",\n", valueLines));
+
+                    tw.WriteLine("}");
+                    tw.Flush();
+
+
+                    using (var sr = new StreamReader(ms))
+                    {
+                        ms.Seek(0, 0);
+                        var txt = sr.ReadToEnd();
+
+                        var frm = new FormJustText { Text = "C# List<" + table.Name + ">", Value = txt.Split('\n') };
+                        frm.MdiParent = this;
+                        frm.Visible = true;
+                    }
+                }
+            }
+        }
     }
 }

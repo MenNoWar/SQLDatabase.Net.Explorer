@@ -82,6 +82,12 @@
       <DependentUpon>DataViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbSettingItem.cs" />
+    <Compile Include="FormJustText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormJustText.Designer.cs">
+      <DependentUpon>FormJustText.cs</DependentUpon>
+    </Compile>
     <Compile Include="ISqlDataObject.cs" />
     <Compile Include="MDIParent1.cs">
       <SubType>Form</SubType>
@@ -120,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataViewForm.resx">
       <DependentUpon>DataViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormJustText.resx">
+      <DependentUpon>FormJustText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MDIParent1.resx">
       <DependentUpon>MDIParent1.cs</DependentUpon>

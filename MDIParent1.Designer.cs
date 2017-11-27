@@ -30,21 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIParent1));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Table1", 6, 6);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Table2", 6, 6);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Table3", 6, 6);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Tables", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("View1");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("View2");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Views", new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Connection", 16, 19, new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Table1", 6, 6);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Table2", 6, 6);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Table3", 6, 6);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Tables", new System.Windows.Forms.TreeNode[] {
+            treeNode9,
+            treeNode10,
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("View1");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("View2");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Views", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14});
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Connection", 16, 19, new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode15});
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.registerNewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +65,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.tsbSql = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -73,13 +74,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvMain = new System.Windows.Forms.TreeView();
             this.tvSchema = new System.Windows.Forms.TreeView();
+            this.cmsSchema = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiCopyFields = new System.Windows.Forms.ToolStripMenuItem();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.cmsTables = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsiCreateTable = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsTable = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsiEditTableData = new System.Windows.Forms.ToolStripMenuItem();
             this.createIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.extractDDLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsiCreateTable2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -93,7 +95,10 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsIndex = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dropIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.codeGenerationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dDLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyValuesAsCListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -102,6 +107,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.cmsSchema.SuspendLayout();
             this.cmsTables.SuspendLayout();
             this.cmsTable.SuspendLayout();
             this.cmsView.SuspendLayout();
@@ -289,6 +295,16 @@
             this.tsbSql.Text = "toolStripButton1";
             this.tsbSql.Click += new System.EventHandler(this.tsbSql_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -370,33 +386,33 @@
             this.tvMain.ImageList = this.imageListTreeviewDefault;
             this.tvMain.Location = new System.Drawing.Point(0, 0);
             this.tvMain.Name = "tvMain";
-            treeNode1.ImageIndex = 6;
-            treeNode1.Name = "Knoten1";
-            treeNode1.SelectedImageIndex = 6;
-            treeNode1.Text = "Table1";
-            treeNode2.ImageIndex = 6;
-            treeNode2.Name = "Knoten3";
-            treeNode2.SelectedImageIndex = 6;
-            treeNode2.Text = "Table2";
-            treeNode3.ImageIndex = 6;
-            treeNode3.Name = "Knoten4";
-            treeNode3.SelectedImageIndex = 6;
-            treeNode3.Text = "Table3";
-            treeNode4.Name = "tnTables";
-            treeNode4.Text = "Tables";
-            treeNode5.Name = "Knoten5";
-            treeNode5.SelectedImageIndex = 6;
-            treeNode5.Text = "View1";
-            treeNode6.Name = "Knoten6";
-            treeNode6.Text = "View2";
-            treeNode7.Name = "tnViews";
-            treeNode7.Text = "Views";
-            treeNode8.ImageIndex = 16;
-            treeNode8.Name = "TnConnections";
-            treeNode8.SelectedImageIndex = 19;
-            treeNode8.Text = "Connection";
+            treeNode9.ImageIndex = 6;
+            treeNode9.Name = "Knoten1";
+            treeNode9.SelectedImageIndex = 6;
+            treeNode9.Text = "Table1";
+            treeNode10.ImageIndex = 6;
+            treeNode10.Name = "Knoten3";
+            treeNode10.SelectedImageIndex = 6;
+            treeNode10.Text = "Table2";
+            treeNode11.ImageIndex = 6;
+            treeNode11.Name = "Knoten4";
+            treeNode11.SelectedImageIndex = 6;
+            treeNode11.Text = "Table3";
+            treeNode12.Name = "tnTables";
+            treeNode12.Text = "Tables";
+            treeNode13.Name = "Knoten5";
+            treeNode13.SelectedImageIndex = 6;
+            treeNode13.Text = "View1";
+            treeNode14.Name = "Knoten6";
+            treeNode14.Text = "View2";
+            treeNode15.Name = "tnViews";
+            treeNode15.Text = "Views";
+            treeNode16.ImageIndex = 16;
+            treeNode16.Name = "TnConnections";
+            treeNode16.SelectedImageIndex = 19;
+            treeNode16.Text = "Connection";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            treeNode16});
             this.tvMain.SelectedImageKey = "folderRed.png";
             this.tvMain.Size = new System.Drawing.Size(259, 239);
             this.tvMain.TabIndex = 5;
@@ -408,6 +424,7 @@
             // 
             // tvSchema
             // 
+            this.tvSchema.ContextMenuStrip = this.cmsSchema;
             this.tvSchema.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvSchema.ImageIndex = 0;
             this.tvSchema.ImageList = this.imageListTreeviewDefault;
@@ -416,6 +433,21 @@
             this.tvSchema.SelectedImageIndex = 0;
             this.tvSchema.Size = new System.Drawing.Size(259, 224);
             this.tvSchema.TabIndex = 0;
+            // 
+            // cmsSchema
+            // 
+            this.cmsSchema.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiCopyFields});
+            this.cmsSchema.Name = "cmsSchema";
+            this.cmsSchema.Size = new System.Drawing.Size(215, 26);
+            // 
+            // tsmiCopyFields
+            // 
+            this.tsmiCopyFields.Image = ((System.Drawing.Image)(resources.GetObject("tsmiCopyFields.Image")));
+            this.tsmiCopyFields.Name = "tsmiCopyFields";
+            this.tsmiCopyFields.Size = new System.Drawing.Size(214, 22);
+            this.tsmiCopyFields.Text = "Copy Fieldlist to Clipboard";
+            this.tsmiCopyFields.Click += new System.EventHandler(this.tsmiCopyFields_Click);
             // 
             // splitter1
             // 
@@ -446,68 +478,61 @@
             this.cmsTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsiEditTableData,
             this.createIndexToolStripMenuItem,
-            this.extractDDLToolStripMenuItem,
+            this.codeGenerationToolStripMenuItem,
             this.toolStripSeparator1,
             this.tsiCreateTable2,
             this.toolStripSeparator2,
             this.tsiDropTable,
             this.toolStripSeparator4});
             this.cmsTable.Name = "cmsTables";
-            this.cmsTable.Size = new System.Drawing.Size(153, 132);
+            this.cmsTable.Size = new System.Drawing.Size(163, 154);
             this.cmsTable.Text = "Create Table";
             // 
             // tsiEditTableData
             // 
             this.tsiEditTableData.Image = ((System.Drawing.Image)(resources.GetObject("tsiEditTableData.Image")));
             this.tsiEditTableData.Name = "tsiEditTableData";
-            this.tsiEditTableData.Size = new System.Drawing.Size(152, 22);
+            this.tsiEditTableData.Size = new System.Drawing.Size(244, 22);
             this.tsiEditTableData.Text = "Edit Table Data";
             this.tsiEditTableData.Click += new System.EventHandler(this.tsiEditTableData_Click);
             // 
             // createIndexToolStripMenuItem
             // 
             this.createIndexToolStripMenuItem.Name = "createIndexToolStripMenuItem";
-            this.createIndexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createIndexToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
             this.createIndexToolStripMenuItem.Text = "Create Index";
             this.createIndexToolStripMenuItem.Click += new System.EventHandler(this.createIndexToolStripMenuItem_Click);
-            // 
-            // extractDDLToolStripMenuItem
-            // 
-            this.extractDDLToolStripMenuItem.Name = "extractDDLToolStripMenuItem";
-            this.extractDDLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.extractDDLToolStripMenuItem.Text = "Extract DDL";
-            this.extractDDLToolStripMenuItem.Click += new System.EventHandler(this.extractDDLToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(241, 6);
             // 
             // tsiCreateTable2
             // 
             this.tsiCreateTable2.Image = ((System.Drawing.Image)(resources.GetObject("tsiCreateTable2.Image")));
             this.tsiCreateTable2.Name = "tsiCreateTable2";
-            this.tsiCreateTable2.Size = new System.Drawing.Size(152, 22);
+            this.tsiCreateTable2.Size = new System.Drawing.Size(244, 22);
             this.tsiCreateTable2.Text = "CreateTable";
             this.tsiCreateTable2.Click += new System.EventHandler(this.tsiCreateTable_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(241, 6);
             // 
             // tsiDropTable
             // 
             this.tsiDropTable.Image = ((System.Drawing.Image)(resources.GetObject("tsiDropTable.Image")));
             this.tsiDropTable.Name = "tsiDropTable";
-            this.tsiDropTable.Size = new System.Drawing.Size(152, 22);
+            this.tsiDropTable.Size = new System.Drawing.Size(244, 22);
             this.tsiDropTable.Text = "Drop Table";
             this.tsiDropTable.Click += new System.EventHandler(this.tsiDropTable_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(241, 6);
             // 
             // cmsView
             // 
@@ -567,15 +592,39 @@
             this.dropIndexToolStripMenuItem.Text = "Drop index";
             this.dropIndexToolStripMenuItem.Click += new System.EventHandler(this.dropIndexToolStripMenuItem_Click);
             // 
-            // toolStripButton1
+            // codeGenerationToolStripMenuItem
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.codeGenerationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dDLToolStripMenuItem,
+            this.cToolStripMenuItem,
+            this.copyValuesAsCListToolStripMenuItem});
+            this.codeGenerationToolStripMenuItem.Name = "codeGenerationToolStripMenuItem";
+            this.codeGenerationToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.codeGenerationToolStripMenuItem.Text = "Code generation";
+            // 
+            // dDLToolStripMenuItem
+            // 
+            this.dDLToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("dDLToolStripMenuItem.Image")));
+            this.dDLToolStripMenuItem.Name = "dDLToolStripMenuItem";
+            this.dDLToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
+            this.dDLToolStripMenuItem.Text = "Extract DDL";
+            this.dDLToolStripMenuItem.Click += new System.EventHandler(this.extractDDLToolStripMenuItem_Click);
+            // 
+            // cToolStripMenuItem
+            // 
+            this.cToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cToolStripMenuItem.Image")));
+            this.cToolStripMenuItem.Name = "cToolStripMenuItem";
+            this.cToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.cToolStripMenuItem.Text = "Generate a C# definition";
+            this.cToolStripMenuItem.Click += new System.EventHandler(this.copyAsCDefinitionToClipbrdToolStripMenuItem_Click);
+            // 
+            // copyValuesAsCListToolStripMenuItem
+            // 
+            this.copyValuesAsCListToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyValuesAsCListToolStripMenuItem.Image")));
+            this.copyValuesAsCListToolStripMenuItem.Name = "copyValuesAsCListToolStripMenuItem";
+            this.copyValuesAsCListToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.copyValuesAsCListToolStripMenuItem.Text = "Generate C# List of values";
+            this.copyValuesAsCListToolStripMenuItem.Click += new System.EventHandler(this.copyValuesAsCListToolStripMenuItem_Click);
             // 
             // MDIParent1
             // 
@@ -604,6 +653,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.cmsSchema.ResumeLayout(false);
             this.cmsTables.ResumeLayout(false);
             this.cmsTable.ResumeLayout(false);
             this.cmsView.ResumeLayout(false);
@@ -664,8 +714,13 @@
         private System.Windows.Forms.ToolStripMenuItem createIndexToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsIndex;
         private System.Windows.Forms.ToolStripMenuItem dropIndexToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem extractDDLToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ContextMenuStrip cmsSchema;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopyFields;
+        private System.Windows.Forms.ToolStripMenuItem codeGenerationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dDLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyValuesAsCListToolStripMenuItem;
     }
 }
 
