@@ -243,8 +243,11 @@ namespace SQLDatabase.Net.Explorer
                         
                         foreach (var kvp in oldValues)
                         {
-                            oldFields.Add(string.Format("{0} = @old_{0}\n", kvp.Key));
-                            updateCommand.Parameters.Add("@old_" + kvp.Key, kvp.Value);
+                            if (kvp.Value != null && kvp.Value != DBNull.Value)
+                            {
+                                oldFields.Add(string.Format("{0} = @old_{0}\n", kvp.Key));
+                                updateCommand.Parameters.Add("@old_" + kvp.Key, kvp.Value);
+                            }
                         }
 
                         updateSql = "UPDATE " + row.Table.TableName + " SET \n";
