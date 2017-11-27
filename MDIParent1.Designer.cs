@@ -78,6 +78,8 @@
             this.tsiCreateTable = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsTable = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsiEditTableData = new System.Windows.Forms.ToolStripMenuItem();
+            this.createIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extractDDLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsiCreateTable2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -89,9 +91,9 @@
             this.tsiUnregister = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsIndizes = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.createIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsIndex = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dropIndexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -259,7 +261,8 @@
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripButton,
-            this.tsbSql});
+            this.tsbSql,
+            this.toolStripButton1});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(924, 31);
@@ -443,13 +446,14 @@
             this.cmsTable.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsiEditTableData,
             this.createIndexToolStripMenuItem,
+            this.extractDDLToolStripMenuItem,
             this.toolStripSeparator1,
             this.tsiCreateTable2,
             this.toolStripSeparator2,
             this.tsiDropTable,
             this.toolStripSeparator4});
             this.cmsTable.Name = "cmsTables";
-            this.cmsTable.Size = new System.Drawing.Size(153, 110);
+            this.cmsTable.Size = new System.Drawing.Size(153, 132);
             this.cmsTable.Text = "Create Table";
             // 
             // tsiEditTableData
@@ -459,6 +463,20 @@
             this.tsiEditTableData.Size = new System.Drawing.Size(152, 22);
             this.tsiEditTableData.Text = "Edit Table Data";
             this.tsiEditTableData.Click += new System.EventHandler(this.tsiEditTableData_Click);
+            // 
+            // createIndexToolStripMenuItem
+            // 
+            this.createIndexToolStripMenuItem.Name = "createIndexToolStripMenuItem";
+            this.createIndexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createIndexToolStripMenuItem.Text = "Create Index";
+            this.createIndexToolStripMenuItem.Click += new System.EventHandler(this.createIndexToolStripMenuItem_Click);
+            // 
+            // extractDDLToolStripMenuItem
+            // 
+            this.extractDDLToolStripMenuItem.Name = "extractDDLToolStripMenuItem";
+            this.extractDDLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.extractDDLToolStripMenuItem.Text = "Extract DDL";
+            this.extractDDLToolStripMenuItem.Click += new System.EventHandler(this.extractDDLToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -535,26 +553,29 @@
             this.toolStripMenuItem1.Text = "Create Index";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // createIndexToolStripMenuItem
-            // 
-            this.createIndexToolStripMenuItem.Name = "createIndexToolStripMenuItem";
-            this.createIndexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.createIndexToolStripMenuItem.Text = "Create Index";
-            this.createIndexToolStripMenuItem.Click += new System.EventHandler(this.createIndexToolStripMenuItem_Click);
-            // 
             // cmsIndex
             // 
             this.cmsIndex.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dropIndexToolStripMenuItem});
             this.cmsIndex.Name = "cmsIndex";
-            this.cmsIndex.Size = new System.Drawing.Size(153, 48);
+            this.cmsIndex.Size = new System.Drawing.Size(132, 26);
             // 
             // dropIndexToolStripMenuItem
             // 
             this.dropIndexToolStripMenuItem.Name = "dropIndexToolStripMenuItem";
-            this.dropIndexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dropIndexToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.dropIndexToolStripMenuItem.Text = "Drop index";
             this.dropIndexToolStripMenuItem.Click += new System.EventHandler(this.dropIndexToolStripMenuItem_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(28, 28);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // MDIParent1
             // 
@@ -566,6 +587,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MDIParent1";
@@ -642,6 +664,8 @@
         private System.Windows.Forms.ToolStripMenuItem createIndexToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip cmsIndex;
         private System.Windows.Forms.ToolStripMenuItem dropIndexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extractDDLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
 

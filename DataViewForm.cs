@@ -29,6 +29,61 @@ namespace SQLDatabase.Net.Explorer
         private int total = 0;
         private Dictionary<string, object> oldValues = new Dictionary<string, object>();
 
+        private void EnsureColumns()
+        {
+            if (sourceTable != null && (sourceTable.Columns == null || sourceTable.Columns.Count == 0))
+            {
+                using (var con = new SqlDatabaseConnection(sourceTable.ConnectionString))
+                {
+                    try
+                    {
+                        con.Open();
+                        sourceTable.GetColumns(con);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+                }
+            }
+
+            if (this.table.Columns.Count == 0)
+            {
+                this.table.BeginInit();
+                // happens when there is no data in the table
+                foreach (var c in sourceTable.Columns)
+                {
+                    var dt = SqlDataColumn.SqlTypeToType(c.Type);
+                    var col = new DataColumn
+                    {
+                        AllowDBNull = c.Nullable,
+                        AutoIncrement = c.AutoInc,
+                        Caption = c.Name,
+                        DataType = dt,
+                        ColumnName = c.Name
+                        // DefaultValue = c.DefaultValue
+                    };
+
+                    var defaultString = Convert.ToString(c.DefaultValue);
+                    if (defaultString.StartsWith("'") && defaultString.EndsWith("'"))
+                    {
+                        defaultString = defaultString.Substring(1, defaultString.Length - 2);
+                    }
+
+                    if (!string.IsNullOrEmpty(defaultString))
+                    {                        
+                        var defVal = Convert.ChangeType(defaultString, dt);
+                        col.DefaultValue = defVal;
+                    }
+
+                    table.Columns.Add(col);
+                }
+
+                this.table.AcceptChanges();
+                this.table.EndInit();
+            }
+        }
+
         private void UpdateRecordsInfo()
         {
             if (pageSize >= total || start >= total)
@@ -41,6 +96,7 @@ namespace SQLDatabase.Net.Explorer
             tsiRecordInfo.Text = string.Format("Records 1-{0}/{1}", curCount, total);
             var p2 = curCount + pageSize > total ? total - curCount : pageSize;
             tsbLoadNext.Text = string.Format("Load next {0} records", p2);
+            EnsureColumns();
         }
 
         private void ReadNextPage()
@@ -91,14 +147,22 @@ namespace SQLDatabase.Net.Explorer
         {
             DataGridViewRow gridrow = dataGridView1.Rows[rowIndex];
             if (gridrow == null) return null;
-            DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
+            DataRowView rowview;
+            try
+            {
+                rowview = (DataRowView)gridrow.DataBoundItem;
+            }
+            catch {
+                rowview = null;
+            }
+
             if (rowview == null) return null;
             DataRow row = rowview.Row;
 
             return row;
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private void _dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             var sqlDelete = "DELETE FROM " + table.TableName + " WHERE\n";
             var cols = new List<string>();
@@ -125,16 +189,22 @@ namespace SQLDatabase.Net.Explorer
             }
         }
 
-        private void dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
+        private void _dataGridView1_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             DataRow row = RowFromIndex(e.RowIndex);
             // var id = (string)row["Id"];
             if (row == null) return;
             if (row.RowState != DataRowState.Unchanged)
             {
+                if (!string.IsNullOrEmpty(row.RowError))
+                {
+                    MessageBox.Show(row.RowError, "Information");
+                    return;
+                }
+
                 switch (row.RowState)
                 {
-                    case DataRowState.Added:
+                    case DataRowState.Added:                        
                         var insertCommand = new SqlDatabaseCommand(connection);
                         var insertSql = "INSERT INTO " + row.Table.TableName + "(\n";
                         var insertFields = new List<string>();
@@ -190,7 +260,7 @@ namespace SQLDatabase.Net.Explorer
             }
         }
         
-        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        private void _dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             oldValues.Clear();
             var row = RowFromIndex(e.RowIndex);
@@ -220,6 +290,57 @@ namespace SQLDatabase.Net.Explorer
         {
             connection.Close();
             table.Dispose();
+        }
+
+        private bool validateRow(DataGridViewRow row)
+        {
+            if (row == null) return false;
+            var rowError = string.Empty;
+            for (var i = 0; i < sourceTable.Columns.Count; i++)
+            {
+                var c = sourceTable.Columns[i];
+                var cell = row.Cells[i];
+                var typ = SqlDataColumn.SqlTypeToType(c.Type);
+                var val = Convert.ToString(cell.Value);
+                if (!c.Nullable && string.IsNullOrEmpty(val))
+                {
+                    cell.ErrorText = string.Format("Cell \"{0}\" needs a value", c.Name);
+                    rowError += cell.ErrorText + "\n";
+                }
+                else
+                {
+                    cell.ErrorText = null;
+                }
+            }
+
+            rowError = rowError.Trim();
+            if (!string.IsNullOrEmpty(rowError))
+            {
+                row.ErrorText = rowError;
+                return true;
+            }
+            else
+            {
+                row.ErrorText = null;
+            }
+
+            return false;
+        }
+
+        private void dataGridView1_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            e.Cancel = validateRow(row);
+        }
+
+        private void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            validateRow(dataGridView1.Rows[e.RowIndex]);
+        }
+
+        private void dataGridView1_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            validateRow(dataGridView1.Rows[e.RowIndex]);
         }
     }
 }

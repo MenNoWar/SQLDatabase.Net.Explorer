@@ -574,5 +574,28 @@ namespace SQLDatabase.Net.Explorer
                 }
             }
         }
+
+        private void extractDDLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var node = tvMain.SelectedNode;
+            if (node == null || node.Tag == null || node.Tag.GetType() != typeof(SqlDataTable)) return;
+            var table = node.Tag as SqlDataTable;
+            if (table == null) return;
+
+            var frm = new SqlForm();
+            frm.Sql = Utils.GetCreateSql(table);
+            frm.MdiParent = this;
+            frm.Connections = Connections;
+            frm.Show();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            tvMain.Nodes.Clear();
+            tvSchema.Nodes.Clear();
+
+            Connections = GetConnectionList();
+            InititalizeTreeview();
+        }
     }
 }

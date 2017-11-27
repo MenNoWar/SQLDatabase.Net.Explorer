@@ -61,20 +61,28 @@ namespace SQLDatabase.Net.Explorer
             }
         }
 
-        public static void CreateTableFromDefinition(ISqlDataObject templateTable, SqlDatabaseConnection connection)
+        public static string GetCreateSql(ISqlDataObject templateTable)
         {
             var createSql = "CREATE TABLE " + templateTable.Name + "\n(";
             var fields = new List<string>();
-            foreach (var col in templateTable.Columns.Where(o=>!string.IsNullOrEmpty(o.Name)))
+            foreach (var col in templateTable.Columns.Where(o => !string.IsNullOrEmpty(o.Name)))
             {
                 var s = "\n" + col.Name + " " + col.Type;
                 if (!col.Nullable || col.IsPKey) { s += " NOT NULL"; }
                 if (col.IsPKey) s += " PRIMARY KEY";
                 if (col.IsPKey && col.AutoInc) s += " AUTOINCREMENT ";
-                if (!col.AutoInc && col.DefaultValue != null && col.DefaultValue != DBNull.Value)
+                var sDefault = Convert.ToString(col.DefaultValue);
+                if (sDefault == "''") sDefault = string.Empty;
+
+                if (!col.AutoInc && col.DefaultValue != null && col.DefaultValue != DBNull.Value && !string.IsNullOrEmpty(sDefault))
                 {
                     s += " DEFAULT ";
-                    s += col.DefaultValue.GetType() == typeof(int) ? Convert.ToString(col.DefaultValue) : string.Format("'{0}'", col.DefaultValue);
+                    if (col.Type.ToUpper() == "TEXT" && !sDefault.StartsWith("'"))
+                    {
+                        sDefault = "'" + sDefault + "'";
+                    }
+
+                    s += sDefault;
                 }
 
                 fields.Add(s);
@@ -82,6 +90,13 @@ namespace SQLDatabase.Net.Explorer
 
             createSql += string.Join(",", fields);
             createSql += "\n)";
+
+            return createSql.Replace("\n", "\r\n");
+        }
+
+        public static void CreateTableFromDefinition(ISqlDataObject templateTable, SqlDatabaseConnection connection)
+        {
+            var createSql = GetCreateSql(templateTable);
 
             if (connection != null)
             {

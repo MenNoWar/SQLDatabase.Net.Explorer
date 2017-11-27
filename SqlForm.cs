@@ -61,11 +61,23 @@ namespace SQLDatabase.Net.Explorer
             InitializeComponent();
         }
 
+        public string Sql
+        {
+            get
+            {
+                return tbSql.Text.Trim();
+            }
+            set
+            {
+                tbSql.Text = value;
+            }
+        }
+
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             if (cbConnections.SelectedItem == null) return;
             var conItem = cbConnections.SelectedItem as DbSettingItem;
-            var sql = tbSql.Text.Trim();
+            var sql = Sql;
             if (string.IsNullOrEmpty(sql)) return;
 
             using (var con = conItem.GetConnection())
