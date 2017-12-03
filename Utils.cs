@@ -63,7 +63,8 @@ namespace SQLDatabase.Net.Explorer
 
         public static string GetCreateSql(ISqlDataObject templateTable)
         {
-            var createSql = "CREATE TABLE " + templateTable.Name + "\n(";
+            var createSql = "DROP TABLE IF EXISTS " + templateTable.Name + ";\n"+
+                "CREATE TABLE " + templateTable.Name + "\n(";
             var fields = new List<string>();
             foreach (var col in templateTable.Columns.Where(o => !string.IsNullOrEmpty(o.Name)))
             {

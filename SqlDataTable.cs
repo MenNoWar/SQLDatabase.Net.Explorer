@@ -22,19 +22,26 @@
                 {
                     using (var da = new SqlDatabaseDataAdapter(cmd))
                     {
-                        da.Fill(dt);
-                        foreach (DataRow row in dt.Rows)
+                        try
                         {
-                            var col = new SqlDataColumn
+                            da.Fill(dt);
+                            foreach (DataRow row in dt.Rows)
                             {
-                                DefaultValue = row["DefaultValue"],
-                                IsPKey = Convert.ToBoolean(row["IsPrimaryKey"]),
-                                Name = Convert.ToString(row["name"]),
-                                Nullable = !Convert.ToBoolean(row["NotNull"]),
-                                Type = Convert.ToString(row["type"])
-                            };
+                                var col = new SqlDataColumn
+                                {
+                                    DefaultValue = row["DefaultValue"],
+                                    IsPKey = Convert.ToBoolean(row["IsPrimaryKey"]),
+                                    Name = Convert.ToString(row["name"]),
+                                    Nullable = !Convert.ToBoolean(row["NotNull"]),
+                                    Type = Convert.ToString(row["type"])
+                                };
 
-                            Columns.Add(col);
+                                Columns.Add(col);
+                            }
+                        }
+                        catch
+                        {
+
                         }
                     }
                 }
