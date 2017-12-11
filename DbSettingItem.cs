@@ -24,7 +24,13 @@ namespace SQLDatabase.Net.Explorer
         {
             get
             {
-                return string.Format("Schema={0};DataSource=file://{1}", Schema, DbFile);
+                var s = string.Format("Schema={0};DataSource=file://{1}", Schema, DbFile); ;
+                if (!string.IsNullOrEmpty(Key))
+                {
+                  //  s += string.Format(";key={0}", Key);
+                }
+
+                return s;
             }
         }
 
@@ -52,7 +58,14 @@ namespace SQLDatabase.Net.Explorer
 
             using (SqlDatabaseConnection con = new SqlDatabaseConnection(ConnectionString))
             {
-                con.Open();
+                try
+                {
+                    con.Open();
+                }
+                catch
+                {
+                    return tableList;
+                }
 
                 using (var cmd = new SqlDatabaseCommand(sql, con))
                 {
@@ -100,7 +113,6 @@ namespace SQLDatabase.Net.Explorer
             return tableList;
         }
         
-
         public void ReadObjects()
         {
             Tables = GetObjects("table").ToList(); ;

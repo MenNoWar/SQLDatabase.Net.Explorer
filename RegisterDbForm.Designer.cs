@@ -113,6 +113,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "Ok";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -125,10 +126,10 @@
             this.button2.Text = "Abort";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // tbDisplay
             // 
             this.tbDisplay.Location = new System.Drawing.Point(16, 138);
-            this.tbDisplay.Name = "textBox1";
+            this.tbDisplay.Name = "tbDisplay";
             this.tbDisplay.Size = new System.Drawing.Size(168, 20);
             this.tbDisplay.TabIndex = 10;
             // 
