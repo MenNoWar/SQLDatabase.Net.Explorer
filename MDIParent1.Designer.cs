@@ -30,21 +30,21 @@
         {
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIParent1));
-			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Table1", 6, 6);
-			System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Table2", 6, 6);
-			System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Table3", 6, 6);
-			System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Tables", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
-			System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("View1");
-			System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("View2");
-			System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Views", new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
-			System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Connection", 16, 19, new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7});
+			System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Table1", 6, 6);
+			System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Table2", 6, 6);
+			System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Table3", 6, 6);
+			System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Tables", new System.Windows.Forms.TreeNode[] {
+            treeNode9,
+            treeNode10,
+            treeNode11});
+			System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("View1");
+			System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("View2");
+			System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Views", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14});
+			System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Connection", 16, 19, new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode15});
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
 			this.registerNewDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -262,8 +262,9 @@
 			// 
 			this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.aboutToolStripMenuItem.Text = "&Info... ...";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// toolStrip
 			// 
@@ -389,33 +390,33 @@
 			this.tvMain.ImageList = this.imageListTreeviewDefault;
 			this.tvMain.Location = new System.Drawing.Point(0, 0);
 			this.tvMain.Name = "tvMain";
-			treeNode1.ImageIndex = 6;
-			treeNode1.Name = "Knoten1";
-			treeNode1.SelectedImageIndex = 6;
-			treeNode1.Text = "Table1";
-			treeNode2.ImageIndex = 6;
-			treeNode2.Name = "Knoten3";
-			treeNode2.SelectedImageIndex = 6;
-			treeNode2.Text = "Table2";
-			treeNode3.ImageIndex = 6;
-			treeNode3.Name = "Knoten4";
-			treeNode3.SelectedImageIndex = 6;
-			treeNode3.Text = "Table3";
-			treeNode4.Name = "tnTables";
-			treeNode4.Text = "Tables";
-			treeNode5.Name = "Knoten5";
-			treeNode5.SelectedImageIndex = 6;
-			treeNode5.Text = "View1";
-			treeNode6.Name = "Knoten6";
-			treeNode6.Text = "View2";
-			treeNode7.Name = "tnViews";
-			treeNode7.Text = "Views";
-			treeNode8.ImageIndex = 16;
-			treeNode8.Name = "TnConnections";
-			treeNode8.SelectedImageIndex = 19;
-			treeNode8.Text = "Connection";
+			treeNode9.ImageIndex = 6;
+			treeNode9.Name = "Knoten1";
+			treeNode9.SelectedImageIndex = 6;
+			treeNode9.Text = "Table1";
+			treeNode10.ImageIndex = 6;
+			treeNode10.Name = "Knoten3";
+			treeNode10.SelectedImageIndex = 6;
+			treeNode10.Text = "Table2";
+			treeNode11.ImageIndex = 6;
+			treeNode11.Name = "Knoten4";
+			treeNode11.SelectedImageIndex = 6;
+			treeNode11.Text = "Table3";
+			treeNode12.Name = "tnTables";
+			treeNode12.Text = "Tables";
+			treeNode13.Name = "Knoten5";
+			treeNode13.SelectedImageIndex = 6;
+			treeNode13.Text = "View1";
+			treeNode14.Name = "Knoten6";
+			treeNode14.Text = "View2";
+			treeNode15.Name = "tnViews";
+			treeNode15.Text = "Views";
+			treeNode16.ImageIndex = 16;
+			treeNode16.Name = "TnConnections";
+			treeNode16.SelectedImageIndex = 19;
+			treeNode16.Text = "Connection";
 			this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8});
+            treeNode16});
 			this.tvMain.SelectedImageKey = "folderRed.png";
 			this.tvMain.Size = new System.Drawing.Size(259, 239);
 			this.tvMain.TabIndex = 5;
@@ -579,7 +580,7 @@
             this.toolStripMenuItem2,
             this.dropViewToolStripMenuItem});
 			this.cmsView.Name = "cmsView";
-			this.cmsView.Size = new System.Drawing.Size(153, 98);
+			this.cmsView.Size = new System.Drawing.Size(135, 76);
 			// 
 			// tsiViewShowData
 			// 

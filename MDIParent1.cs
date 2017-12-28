@@ -855,5 +855,12 @@ namespace SQLDatabase.Net.Explorer
 				}
 			}
 		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("SqlDatabase.Net.Explorer by mennowar\n" + 
+							"This Software is 'as is' without any warranties.\n" + 
+							"Use at your own risk.", "Information");
+		}
 	}
 }
