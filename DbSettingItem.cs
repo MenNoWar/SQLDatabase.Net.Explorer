@@ -56,59 +56,68 @@ namespace SQLDatabase.Net.Explorer
             var tableList = new List<ISqlDataObject>();
             string sql = string.Format("SELECT * FROM SYS_OBJECTS WHERE type = '{0}';", type);
 
-            using (SqlDatabaseConnection con = new SqlDatabaseConnection(ConnectionString))
-            {
-                try
-                {
-                    con.Open();
-                }
-                catch
-                {
-                    return tableList;
-                }
+			try
+			{
+				using (SqlDatabaseConnection con = new SqlDatabaseConnection(ConnectionString))
+				{
+					try
+					{
+						con.Open();
+					}
+					catch
+					{
+						return tableList;
+					}
 
-                using (var cmd = new SqlDatabaseCommand(sql, con))
-                {
-                    var rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
-                    {
-                        if (type == "table")
-                        {
-                            var table = new SqlDataTable
-                            {
-                                TableName = rdr.GetString(3),
-                                Name = rdr.GetString(2),
-                                ConnectionString = con.ConnectionString
-                            };
+					using (var cmd = new SqlDatabaseCommand(sql, con))
+					{
+						var rdr = cmd.ExecuteReader();
+						while (rdr.Read())
+						{
+							if (type == "table")
+							{
+								var table = new SqlDataTable
+								{
+									TableName = rdr.GetString(3),
+									Name = rdr.GetString(2),
+									ConnectionString = con.ConnectionString
+								};
 
-                            if (table.Name != "sys_sequences") tableList.Add(table);
-                        }
-                        else if (type == "view")
-                        {
-                            var view = new SqlDataView
-                            {
-                                TableName = rdr.GetString(3),
-                                Name = rdr.GetString(2),
-                                ConnectionString = con.ConnectionString
-                            };
+								if (table.Name != "sys_sequences") tableList.Add(table);
+							}
+							else if (type == "view")
+							{
+								var view = new SqlDataView
+								{
+									TableName = rdr.GetString(3),
+									Name = rdr.GetString(2),
+									ConnectionString = con.ConnectionString
+								};
 
-                            view.GetColumns(con);
-                            tableList.Add(view);
-                        } else if (type == "index")
-                        {
-                            var index = new SqlDataIndex
-                            {
-                                TableName = rdr.GetString(3),
-                                Name = rdr.GetString(2),
-                                ConnectionString = con.ConnectionString
-                            };
+								view.GetColumns(con);
+								tableList.Add(view);
+							}
+							else if (type == "index")
+							{
+								var index = new SqlDataIndex
+								{
+									TableName = rdr.GetString(3),
+									Name = rdr.GetString(2),
+									ConnectionString = con.ConnectionString
+								};
 
-                            index.GetColumns(con);
-                            tableList.Add(index);
-                        }
-                    }
-                }
-            }
+								index.GetColumns(con);
+								tableList.Add(index);
+							}
+						}
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				SqlDatabaseConnection con = new SqlDatabaseConnection(ConnectionString);
+				MessageBox.Show("Error reading data from " + con.Database);
+			}
 
             return tableList;
         }
