@@ -65,7 +65,38 @@ namespace SQLDatabase.Net.Explorer
         {
             var createSql = "DROP TABLE IF EXISTS " + templateTable.Name + ";\n"+
                 "CREATE TABLE " + templateTable.Name + "\n(";
-            var fields = new List<string>();
+
+			if (templateTable.GetType() == typeof(SqlDataView))
+			{
+				createSql = "DROP VIEW IF EXISTS " + templateTable.Name + ";\r\n";
+				using (var con = new SqlDatabaseConnection(templateTable.ConnectionString))
+				{
+					con.Open();
+					try
+					{
+
+						var sql = string.Format("SELECT sqltext FROM SYS_OBJECTS WHERE\n" +
+											"type = 'view' \n" +
+											"AND name = '{0}'", templateTable.Name);
+						using (var cmd = new SqlDatabaseCommand(sql, con))
+						{
+							createSql += Convert.ToString(cmd.ExecuteScalar());
+						}
+					}
+					catch
+					{
+						throw;
+					}
+					finally
+					{
+						con.Close();
+					}
+				}
+
+				return createSql;
+			}
+
+			var fields = new List<string>();
             foreach (var col in templateTable.Columns.Where(o => !string.IsNullOrEmpty(o.Name)))
             {
                 var s = "\n" + col.Name + " " + col.Type;

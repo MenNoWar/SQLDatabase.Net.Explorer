@@ -28,6 +28,7 @@ namespace SQLDatabase.Net.Explorer
                     return typeof(double);
                 case "BLOB":
                     return typeof(byte[]);
+				case "":
                 case "NONE":
                     return typeof(object);
             }

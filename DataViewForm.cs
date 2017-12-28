@@ -364,5 +364,10 @@ namespace SQLDatabase.Net.Explorer
                 }
             }
         }
-    }
+
+		private void toolStripButton1_Click(object sender, EventArgs e)
+		{
+			this.InitializeData(this.sourceTable);
+		}
+	}
 }
