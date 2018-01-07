@@ -15,6 +15,8 @@ namespace SQLDatabase.Net.Explorer
 	public partial class MDIParent1 : Form
 	{
 		private static object lockObject = new object();
+		private DateTime _lastMouseDown;
+		private bool _preventExpand;
 
 		public MDIParent1()
 		{
@@ -362,10 +364,22 @@ namespace SQLDatabase.Net.Explorer
 			var typ = node.Tag.GetType();
 
 			if (typ != typeof(SqlDataTable) && typ != typeof(SqlDataView)) return;
+			var source = node.Tag as ISqlDataObject;
+
+			// only one View per Table
+			foreach (var child in this.MdiChildren)
+			{
+				if (child.Tag == source)
+				{
+					if (child.WindowState == FormWindowState.Minimized) child.WindowState = FormWindowState.Normal;
+					child.BringToFront();
+					return;
+				}
+			}
 
 			var frm = new DataViewForm();
 			frm.MdiParent = this;
-			var source = node.Tag as ISqlDataObject;
+		
 			if (source.Columns.Count == 0)
 			{
 				using (var con = new SqlDatabaseConnection(source.ConnectionString))
@@ -394,6 +408,7 @@ namespace SQLDatabase.Net.Explorer
 				frm.Text = string.Format("{0} [{1}]", source.Name, connection.Name);
 			}
 
+			frm.Tag = source;
 			frm.Visible = true;
 		}
 
@@ -500,7 +515,7 @@ namespace SQLDatabase.Net.Explorer
 				}
 			}
 		}
-
+		
 		private void tvMain_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button == MouseButtons.Right)
@@ -510,6 +525,11 @@ namespace SQLDatabase.Net.Explorer
 				{
 					tvMain.SelectedNode = node;
 				}
+			} else
+			{
+				int delta = (int)DateTime.Now.Subtract(_lastMouseDown).TotalMilliseconds;
+				_preventExpand = (delta < SystemInformation.DoubleClickTime);
+				_lastMouseDown = DateTime.Now;
 			}
 		}
 
@@ -861,6 +881,18 @@ namespace SQLDatabase.Net.Explorer
 			MessageBox.Show("SqlDatabase.Net.Explorer by mennowar\n" + 
 							"This Software is 'as is' without any warranties.\n" + 
 							"Use at your own risk.", "Information");
+		}
+
+		private void tvMain_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+		{
+			e.Cancel = _preventExpand;
+			_preventExpand = false;
+		}
+
+		private void tvMain_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
+		{
+			e.Cancel = _preventExpand;
+			_preventExpand = false;
 		}
 	}
 }

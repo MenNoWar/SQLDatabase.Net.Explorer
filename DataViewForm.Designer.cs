@@ -32,11 +32,11 @@
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.btnCreatePKey = new System.Windows.Forms.ToolStripButton();
 			this.tsiRecordInfo = new System.Windows.Forms.ToolStripLabel();
-			this.tsbLoadNext = new System.Windows.Forms.ToolStripButton();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tsbLoadNext = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
@@ -72,6 +72,11 @@
 			this.tsiRecordInfo.Size = new System.Drawing.Size(86, 22);
 			this.tsiRecordInfo.Text = "toolStripLabel1";
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// tsbLoadNext
 			// 
 			this.tsbLoadNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -83,20 +88,10 @@
 			this.tsbLoadNext.Text = "Load next x records";
 			this.tsbLoadNext.Click += new System.EventHandler(this.tsbLoadNext_Click);
 			// 
-			// dataGridView1
+			// toolStripSeparator2
 			// 
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(666, 269);
-			this.dataGridView1.TabIndex = 2;
-			this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this._dataGridView1_RowEnter);
-			this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this._dataGridView1_RowValidated);
-			this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this._dataGridView1_UserDeletingRow);
-			this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
 			// 
 			// toolStripButton1
 			// 
@@ -109,15 +104,21 @@
 			this.toolStripButton1.ToolTipText = "Refreh Data";
 			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
 			// 
-			// toolStripSeparator1
+			// dataGridView1
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.Size = new System.Drawing.Size(666, 269);
+			this.dataGridView1.TabIndex = 2;
+			this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+			this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this._dataGridView1_RowEnter);
+			this.dataGridView1.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this._dataGridView1_RowValidated);
+			this.dataGridView1.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this._dataGridView1_UserDeletingRow);
+			this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dataGridView1_KeyPress);
 			// 
 			// DataViewForm
 			// 

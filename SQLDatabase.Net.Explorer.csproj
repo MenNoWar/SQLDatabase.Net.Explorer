@@ -63,6 +63,12 @@
     <Compile Include="ColumnDisplay.Designer.cs">
       <DependentUpon>ColumnDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColumnTextContentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ColumnTextContentForm.Designer.cs">
+      <DependentUpon>ColumnTextContentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateIndexForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ColumnDisplay.resx">
       <DependentUpon>ColumnDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ColumnTextContentForm.resx">
+      <DependentUpon>ColumnTextContentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateIndexForm.resx">
       <DependentUpon>CreateIndexForm.cs</DependentUpon>
